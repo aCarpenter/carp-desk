@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+- 2.1
+bundler_args: "--without production development"
+addons:
+  postgresql: '9.3'
+before_script:
+- psql -c 'create database "carp-desk_test";' -U postgres
+- bundle exec rake db:create
+- bundle exec rake db:migrate
+- bundle exec rake db:test:prepare
+script: bundle exec rspec spec
+deploy:
+  provider: heroku
+  api_key:
+    secure: ETaTmXLm028yEuchQ67Z/lqcqI3k8Yu6xRUylSqvEpiDZfGQbDgst/mUdNFtVysy4u4LvtSCrJDeZwYjOUK3sMMjIV0/9jh01/OyxX6BzcEq2RgHbcH+EB2Hv1P0Qj5+63XFlEff4YGGFOP/q+BdsCnDr20XuRvLH0OxVaswwMo=
+  app: shrouded-badlands-6980
+  on:
+    repo: aCarpenter/carp-desk
