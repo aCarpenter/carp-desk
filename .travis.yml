@@ -11,7 +11,7 @@ before_script:
 - bundle exec rake db:test:prepare
 script: bundle exec rspec spec
 env:
-  SECRET_KEY_BASE="$(bundle exec rake secret)"
+  RAILS_ENV=test
 deploy:
   provider: heroku
   api_key:
